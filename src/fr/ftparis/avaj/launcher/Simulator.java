@@ -26,14 +26,20 @@ public class Simulator {
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
             return (-1);
         longitude = (int) tokenizer.nval;
+        if (longitude < 0)
+            return (-1);
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
             return (-1);
         latitude = (int) tokenizer.nval;
+        if (latitude < 0)
+            return (-1);
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
             return (-1);
         height = (int) tokenizer.nval;
+        if (height < 0 || height > 100)
+            return (-1);
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_EOL)
             return (-1);
