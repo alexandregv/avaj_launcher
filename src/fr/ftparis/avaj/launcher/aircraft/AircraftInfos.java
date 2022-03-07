@@ -1,16 +1,6 @@
 package fr.ftparis.avaj.launcher.aircraft;
 
-public final class AircraftInfos {
-    private final String type, name;
-    private final int longitude, latitude, height;
-
-    public AircraftInfos(String type, String name, int longitude, int latitude, int height) {
-        this.type = type;
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.height = height;
-    }
+public record AircraftInfos(String type, String name, int longitude, int latitude, int height) {
 
     public String getType() {
         return type;
