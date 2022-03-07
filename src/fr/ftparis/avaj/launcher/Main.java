@@ -1,4 +1,4 @@
-package fr.aguiot;
+package fr.ftparis.avaj.launcher;
 
 public class Main {
 
