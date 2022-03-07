@@ -1,5 +1,7 @@
 package fr.ftparis.avaj.launcher;
 
+import fr.ftparis.avaj.launcher.aircraft.AircraftInfos;
+
 import java.util.List;
 
 public class Simulation {

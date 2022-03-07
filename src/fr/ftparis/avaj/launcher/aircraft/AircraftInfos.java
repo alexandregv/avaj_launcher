@@ -1,6 +1,4 @@
-package fr.ftparis.avaj.launcher;
-
-import fr.ftparis.avaj.launcher.aircraft.Aircraft;
+package fr.ftparis.avaj.launcher.aircraft;
 
 public final class AircraftInfos {
     private final String type, name;
