@@ -2,4 +2,4 @@
 
 find * -name '*.java' > sources.txt
 javac @sources.txt
-java --class-path src fr.ftparis.avaj.launcher.Main
+java --class-path src fr.ftparis.avaj.launcher.Simulator
