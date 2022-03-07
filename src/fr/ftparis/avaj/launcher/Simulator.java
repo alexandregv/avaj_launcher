@@ -1,8 +1,11 @@
 package fr.ftparis.avaj.launcher;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 public class Simulator {
 
@@ -11,65 +14,103 @@ public class Simulator {
         System.exit(exitStatus);
     }
 
-    private static int readLine(StreamTokenizer tokenizer) throws IOException {
+   private static int readSimulationCount(StreamTokenizer tokenizer) throws IOException {
+       int simulationCount = 0;
+
+       if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
+           quit(1, "Invalid scenario file (line " + tokenizer.lineno() + ").");
+       simulationCount = (int) tokenizer.nval;
+
+       if (tokenizer.nextToken() != StreamTokenizer.TT_EOL)
+           quit(1, "Invalid scenario file (line " + tokenizer.lineno() + ").");
+
+       return simulationCount;
+   }
+
+    private static AircraftInfos readOneAircraftInfos(StreamTokenizer tokenizer) throws IOException {
        String type, name;
        int longitude, latitude, height;
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_WORD)
-            return (-1);
+       tokenizer.pushBack();
+        if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
+            quit(1, "Error on 'type' token (line " + tokenizer.lineno() + ").");
+        }
         type = tokenizer.sval;
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_WORD)
-            return (-1);
+        if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
+            quit(1, "Error on 'name' token (line " + tokenizer.lineno() + ").");
+        }
         name = tokenizer.sval;
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
-            return (-1);
+        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+            quit(1, "Error on 'longitude' token (line " + tokenizer.lineno() + ").");
+        }
         longitude = (int) tokenizer.nval;
-        if (longitude < 0)
-            return (-1);
+        if (longitude < 0) {
+            quit(1, "Error, 'longitude' must be > 0 (line " + tokenizer.lineno() + ").");
+        }
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
-            return (-1);
+        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+            quit(1, "Error on 'latitude' token (line " + tokenizer.lineno() + ").");
+        }
         latitude = (int) tokenizer.nval;
-        if (latitude < 0)
-            return (-1);
+        if (latitude < 0) {
+            quit(1, "Error, 'latitude' must be > 0 (line " + tokenizer.lineno() + ").");
+        }
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
-            return (-1);
+        if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+            quit(1, "Error on height token (line " + tokenizer.lineno() + ").");
+        }
         height = (int) tokenizer.nval;
-        if (height < 0 || height > 100)
-            return (-1);
+        // TODO: Change to keep the real value and then make it 100 in the simulation
+        if (height > 100)
+            height = 100;
+        if (height < 0 ) {
+            quit(1, "Error, 'height' must be > 0 (line " + tokenizer.lineno() + ").");
+        }
 
-        if (tokenizer.nextToken() != StreamTokenizer.TT_EOL)
-            return (-1);
+        if (tokenizer.nextToken() != StreamTokenizer.TT_EOL) {
+            quit(1, "Error, unexpected tokens at end of line (line " + tokenizer.lineno() + ").");
+        }
 
-        System.out.println("TYPE: " + type);
-        System.out.println("NAME: " + name);
-        System.out.println("LONG: " + longitude);
-        System.out.println("LATI: " + latitude);
-        System.out.println("HEIT: " + height + "\n");
-
-        return (0);
+        return new AircraftInfos(type, name, longitude, latitude, height);
     }
 
-    private static int readFile(String filename) throws IOException {
-        int simulationCount = 0;
+    private static List<AircraftInfos> readAllAircraftInfos(StreamTokenizer tokenizer) throws IOException {
+        List<AircraftInfos> aircraftInfosList = new ArrayList<AircraftInfos>();
 
-        FileReader fileReader = new FileReader(filename);
+        tokenizer.nextToken();
+        do {
+            AircraftInfos aircraftInfos = readOneAircraftInfos(tokenizer);
+            if (aircraftInfos == null)
+                quit(1, "Invalid scenario file (line " + tokenizer.lineno() + ").");
+            aircraftInfosList.add(aircraftInfos);
+        } while (tokenizer.nextToken() != StreamTokenizer.TT_EOF);
+        return aircraftInfosList;
+    }
+
+    private static StreamTokenizer initTokenizer(String filename) {
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(filename);
+        } catch (FileNotFoundException e) {
+            quit(1, "Could not find file: " + filename);
+        }
         StreamTokenizer tokenizer = new StreamTokenizer(fileReader);
 
         tokenizer.eolIsSignificant(true);
+        return tokenizer;
+    }
 
-        tokenizer.nextToken();
-        if (tokenizer.ttype != StreamTokenizer.TT_NUMBER)
-            return (-1);
-        simulationCount = (int) tokenizer.nval;
-        while (tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
-            if (readLine(tokenizer) == -1)
-                quit(1, "Invalid scenario file (line " + tokenizer.lineno() + ").");
-        }
-        return (0);
+    private static void initFromScenarioFile(String filename) throws IOException {
+        StreamTokenizer tokenizer = initTokenizer(filename);
+        int simulationCount;
+        List<AircraftInfos> aircraftInfosList;
+
+        simulationCount = readSimulationCount(tokenizer);
+        aircraftInfosList = readAllAircraftInfos(tokenizer);
+
+        IntStream.range(0, simulationCount).forEach(i -> new Simulation(aircraftInfosList));
     }
 
     public static void main(String[] args) {
@@ -77,11 +118,9 @@ public class Simulator {
             quit(1, "Please provide a scenario file as argument.");
 
         try {
-            int ret = readFile(args[0]);
-            if (ret == -1)
-                quit(1, "Invalid scenario file.");
+            initFromScenarioFile(args[0]);
         } catch (IOException e) {
-            quit(1, "Could not find file: " + args[0]);
+            quit(1, "Error while reading scenario file (" + args[0] + ").");
         }
     }
 }

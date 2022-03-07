@@ -13,6 +13,7 @@ public class AircraftFactory {
             case "Baloon" -> new Baloon(name, coordinates);
             case "Helicopter" -> new Helicopter(name, coordinates);
             case "JetPlane" -> new JetPlane(name, coordinates);
+            default -> null;
         };
     }
 }
