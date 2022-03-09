@@ -1,4 +1,4 @@
-package fr.ftparis.avaj.launcher.tower;
+package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.Flyable;
 

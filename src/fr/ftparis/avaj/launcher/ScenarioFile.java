@@ -21,7 +21,7 @@ public class ScenarioFile {
         simulationCount = readSimulationCount(tokenizer);
         aircraftInfosList = readAllAircraftInfos(tokenizer);
 
-        IntStream.range(0, simulationCount).forEach(i -> new Simulation(aircraftInfosList));
+        new Simulation(simulationCount, aircraftInfosList);
     }
 
     private static StreamTokenizer initTokenizer(String filename) {

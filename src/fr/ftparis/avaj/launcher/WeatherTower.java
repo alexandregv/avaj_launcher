@@ -1,6 +1,7 @@
-package fr.ftparis.avaj.launcher.tower;
+package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.aircraft.Coordinates;
+import fr.ftparis.avaj.launcher.Tower;
 
 public class WeatherTower extends Tower {
     public String getWeather(Coordinates coordinates) {
@@ -8,7 +9,7 @@ public class WeatherTower extends Tower {
         return ("");
     }
 
-    private void changeWeather() {
+    protected void changeWeather() {
 
     }
 }

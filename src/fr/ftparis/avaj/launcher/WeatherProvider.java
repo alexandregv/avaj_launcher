@@ -1,11 +1,10 @@
 package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.aircraft.Coordinates;
-import fr.ftparis.avaj.launcher.tower.WeatherTower;
 
 public class WeatherProvider {
     private static final WeatherProvider SINGLETON = new WeatherProvider();
-    private String[] weather = {};
+    private final String[] weather = {"RAIN", "FOG", "SUN", "SNOW"};
 
     private WeatherProvider() {
 
