@@ -8,9 +8,8 @@ import java.io.IOException;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
-import static fr.ftparis.avaj.launcher.Utils.quit;
+import static fr.ftparis.avaj.launcher.Simulator.quit;
 
 public class ScenarioFile {
     public static void initFromScenarioFile(String filename) throws IOException {

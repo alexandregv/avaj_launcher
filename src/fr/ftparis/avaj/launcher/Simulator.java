@@ -1,14 +1,8 @@
 package fr.ftparis.avaj.launcher;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringJoiner;
-import java.util.stream.IntStream;
 
 import static fr.ftparis.avaj.launcher.ScenarioFile.initFromScenarioFile;
-import static fr.ftparis.avaj.launcher.Utils.quit;
 
 public class Simulator {
 
@@ -21,5 +15,10 @@ public class Simulator {
         } catch (IOException e) {
             quit(1, "Error while reading scenario file (" + args[0] + ").");
         }
+    }
+
+    public static void quit(int exitStatus, String message) {
+        System.out.println(message);
+        System.exit(exitStatus);
     }
 }
