@@ -14,11 +14,12 @@ public class Baloon extends Aircraft implements Flyable {
 
     @Override
     public void updateConditions() {
-
+        System.out.println("Wow the weather has changed!");
     }
 
     @Override
     public void registerTower(WeatherTower weatherTower) {
-
+        weatherTower.register(this);
+        System.out.println("Baloon: Registered to tower!");
     }
 }
