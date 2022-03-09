@@ -3,7 +3,6 @@ package fr.ftparis.avaj.launcher.aircraft.aircrafts;
 import fr.ftparis.avaj.launcher.Flyable;
 import fr.ftparis.avaj.launcher.aircraft.Aircraft;
 import fr.ftparis.avaj.launcher.aircraft.Coordinates;
-import fr.ftparis.avaj.launcher.WeatherTower;
 
 public class Baloon extends Aircraft implements Flyable {
 

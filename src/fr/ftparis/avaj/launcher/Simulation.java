@@ -1,10 +1,8 @@
 package fr.ftparis.avaj.launcher;
 
-import fr.ftparis.avaj.launcher.aircraft.Aircraft;
 import fr.ftparis.avaj.launcher.aircraft.AircraftFactory;
 import fr.ftparis.avaj.launcher.aircraft.AircraftInfos;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 

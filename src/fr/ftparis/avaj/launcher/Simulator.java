@@ -1,6 +1,6 @@
 package fr.ftparis.avaj.launcher;
 
-import java.io.*;
+import java.io.IOException;
 
 import static fr.ftparis.avaj.launcher.ScenarioFile.initFromScenarioFile;
 
