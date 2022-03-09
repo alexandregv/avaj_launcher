@@ -1,10 +1,41 @@
 package fr.ftparis.avaj.launcher;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.logging.*;
 
 import static fr.ftparis.avaj.launcher.ScenarioFile.initFromScenarioFile;
 
 public class Simulator {
+    private static final Logger LOGGER = Logger.getLogger(Simulator.class.getPackage().getName());
+
+    static {
+        try {
+            SimpleFormatter formatter = new SimpleFormatter() {
+                private static final String format = "[%1$tT] [%2$-7s] %3$s %n";
+
+                public synchronized String format(LogRecord logRecord) {
+                    return String.format(format,
+                            new Date(logRecord.getMillis()),
+                            logRecord.getLevel().getLocalizedName(),
+                            logRecord.getMessage()
+                    );
+                }
+            };
+
+            ConsoleHandler consoleHandler = new ConsoleHandler();
+            consoleHandler.setFormatter(formatter);
+
+            FileHandler fileHandler = new FileHandler("simulation.txt");
+            fileHandler.setFormatter(formatter);
+
+            LOGGER.setUseParentHandlers(false);
+            LOGGER.addHandler(consoleHandler);
+            LOGGER.addHandler(fileHandler);
+        } catch( Exception exception ) {
+            LOGGER.log(Level.SEVERE, "Error while initializing logger", exception);
+        }
+    }
 
     public static void main(String[] args) {
         if (args.length != 1)
