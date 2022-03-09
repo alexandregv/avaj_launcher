@@ -67,6 +67,6 @@ public class Coordinates {
     }
 
     public String toString() {
-        return "(" + this.longitude + "," + this.latitude + "," + this.height + ")";
+        return "(" + this.getLongitude() + ", " + this.getLatitude() + ",  " + this.getHeight() + ")";
     }
 }

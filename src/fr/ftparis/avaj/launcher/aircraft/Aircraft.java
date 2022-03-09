@@ -43,25 +43,35 @@ public class Aircraft {
     public void registerTower(WeatherTower weatherTower) {
         this.weatherTower = weatherTower;
         this.weatherTower.register((Flyable) this);
-        System.out.println("[LOG] " + this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + ") registered to weather tower.");
+        this.log("registered to weather tower.");
     }
 
     public void unregisterTower(WeatherTower weatherTower) {
         this.weatherTower.unregister((Flyable) this);
-        System.out.println("[LOG] " + this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + ") unregistered from weather tower.");
+        this.log("unregistered from weather tower.");
     }
 
     public void updateConditions(String message) {
         if (this.getCoordinates().getHeight() > 100)
             this.getCoordinates().setHeight(100);
-        else if (this.getCoordinates().getHeight() < 0) {
+        else if (this.getCoordinates().getHeight() <= 0) {
             this.getCoordinates().setHeight(0);
-            // TODO : unregister and land
+            this.log("Landing at " + this.getCoordinates() + ".");
+            //this.unregisterTower(this.weatherTower);
+            return;
         }
-        System.out.println(this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + "): " + message);
+        msg(message);
+    }
+
+    private void log(String message) {
+        System.out.println("[LOG] " + this + ": " + message);
+    }
+
+    private void msg(String message) {
+        System.out.println("[MSG] " + this + ": " + message);
     }
 
     public String toString() {
-        return this.name + "#" + this.id + "(" + this.coordinates.getLongitude() + "," + this.coordinates.getLatitude() + "," + this.coordinates.getHeight() + ")";
+        return this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + ")";
     }
 }
