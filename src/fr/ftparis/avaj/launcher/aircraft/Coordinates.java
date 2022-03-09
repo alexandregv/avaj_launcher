@@ -41,6 +41,30 @@ public class Coordinates {
         this.height = height;
     }
 
+    public void increaseLongitudeBy(int amount) {
+        this.setLongitude(this.getLongitude() + amount);
+    }
+
+    public void decreaseLongitudeBy(int amount) {
+        this.setLongitude(this.getLongitude() - amount);
+    }
+
+    public void increaseLatitudeBy(int amount) {
+        this.setLatitude(this.getLatitude() + amount);
+    }
+
+    public void decreaseLatitudeBy(int amount) {
+        this.setLatitude(this.getLatitude() - amount);
+    }
+
+    public void increaseHeightBy(int amount) {
+        this.setHeight(this.getHeight() + amount);
+    }
+
+    public void decreaseHeightBy(int amount) {
+        this.setHeight(this.getHeight() - amount);
+    }
+
     public String toString() {
         return "(" + this.longitude + "," + this.latitude + "," + this.height + ")";
     }
