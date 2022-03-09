@@ -57,7 +57,7 @@ public class Aircraft {
         else if (this.getCoordinates().getHeight() <= 0) {
             this.getCoordinates().setHeight(0);
             this.log("Landing at " + this.getCoordinates() + ".");
-            //this.unregisterTower(this.weatherTower);
+            this.unregisterTower(this.weatherTower);
             return;
         }
         msg(message);
