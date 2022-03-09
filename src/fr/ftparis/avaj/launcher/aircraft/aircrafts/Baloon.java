@@ -6,7 +6,6 @@ import fr.ftparis.avaj.launcher.aircraft.Coordinates;
 import fr.ftparis.avaj.launcher.WeatherTower;
 
 public class Baloon extends Aircraft implements Flyable {
-    private WeatherTower weatherTower;
 
     public Baloon(String name, Coordinates coordinates) {
         super(name, coordinates);
@@ -14,12 +13,6 @@ public class Baloon extends Aircraft implements Flyable {
 
     @Override
     public void updateConditions() {
-        System.out.println("Wow the weather has changed!");
-    }
-
-    @Override
-    public void registerTower(WeatherTower weatherTower) {
-        weatherTower.register(this);
-        System.out.println("Baloon: Registered to tower!");
+        System.out.println(this.name + " Wow the weather has changed! " + weatherTower.getWeather(this.coordinates));
     }
 }
