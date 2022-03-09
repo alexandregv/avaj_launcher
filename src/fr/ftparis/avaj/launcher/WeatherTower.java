@@ -10,6 +10,6 @@ public class WeatherTower extends Tower {
     }
 
     protected void changeWeather() {
-
+        System.out.println("WeatherTower: Weather is changing!");
     }
 }

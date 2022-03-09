@@ -6,6 +6,10 @@ import fr.ftparis.avaj.launcher.aircraft.aircrafts.Helicopter;
 import fr.ftparis.avaj.launcher.aircraft.aircrafts.JetPlane;
 
 public class AircraftFactory {
+    public Flyable newAircraft(AircraftInfos infos) {
+        return newAircraft(infos.type(), infos.name(), infos.longitude(), infos.longitude(), infos.height());
+    }
+
     public Flyable newAircraft(String type, String name, int longitude, int latitude, int height) {
         Coordinates coordinates = new Coordinates(longitude, latitude, height);
 
