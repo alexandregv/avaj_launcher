@@ -16,9 +16,4 @@ public class JetPlane extends Aircraft implements Flyable {
     public void updateConditions() {
 
     }
-
-    @Override
-    public void registerTower(WeatherTower weatherTower) {
-
-    }
 }
