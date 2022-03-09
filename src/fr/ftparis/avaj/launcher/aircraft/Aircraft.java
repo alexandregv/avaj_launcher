@@ -33,7 +33,7 @@ public class Aircraft {
     }
 
     public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
+        this.coordinates.setCoordinates(coordinates);
     }
 
     public void setCoordinates(int longitude, int latitude, int height) {
@@ -49,6 +49,16 @@ public class Aircraft {
     public void unregisterTower(WeatherTower weatherTower) {
         this.weatherTower.unregister((Flyable) this);
         System.out.println("[LOG] " + this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + ") unregistered from weather tower.");
+    }
+
+    public void updateConditions(String message) {
+        if (this.getCoordinates().getHeight() > 100)
+            this.getCoordinates().setHeight(100);
+        else if (this.getCoordinates().getHeight() < 0) {
+            this.getCoordinates().setHeight(0);
+            // TODO : unregister and land
+        }
+        System.out.println(this.getClass().getSimpleName() + "#" + this.getName() + "(" + this.getId() + "): " + message);
     }
 
     public String toString() {

@@ -31,14 +31,15 @@ public class Coordinates {
         this.latitude = latitude;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
+    public void setHeight(int height) { this.height = height; }
 
+    public void setCoordinates(Coordinates coordinates) {
+       this.setCoordinates(coordinates.getLongitude(), coordinates.getLatitude(), coordinates.getHeight());
+    }
     public void setCoordinates(int longitude, int latitude, int height) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.height = height;
+        this.setLongitude(longitude);
+        this.setLatitude(latitude);
+        this.setHeight(height);
     }
 
     public void increaseLongitudeBy(int amount) {

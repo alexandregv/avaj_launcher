@@ -17,17 +17,21 @@ public class Baloon extends Aircraft implements Flyable {
             case "SUN" -> {
                 this.coordinates.increaseLongitudeBy(2);
                 this.coordinates.increaseHeightBy(4);
+                super.updateConditions("Ahhh some sun, what a pleasure.");
             }
             case "RAIN" -> {
                 this.coordinates.decreaseHeightBy(5);
+                super.updateConditions("OMG it's raining! Hope the flame doesn't go down.");
             }
             case "FOG" -> {
                 this.coordinates.decreaseHeightBy(3);
+                super.updateConditions("Well, fog or not, I can't control this balloon...");
             }
             case "SNOW" -> {
                 this.coordinates.decreaseHeightBy(15);
+                super.updateConditions("Crap, some snow! It will be hard to keep this balloon warm.");
             }
-            default -> {}
+            default -> { super.updateConditions("Well, this place is actually neutral."); }
         }
     }
 }
