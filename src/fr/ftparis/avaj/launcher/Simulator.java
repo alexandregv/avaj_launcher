@@ -1,6 +1,7 @@
 package fr.ftparis.avaj.launcher;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.*;
 
@@ -44,7 +45,10 @@ public class Simulator {
         try {
             initFromScenarioFile(args[0]);
         } catch (IOException e) {
-            quit(1, "Error while reading scenario file (" + args[0] + ").");
+            Arrays.stream(LOGGER.getHandlers()).filter(h -> h instanceof ConsoleHandler).forEach(LOGGER::removeHandler);
+            String message = "Error while reading scenario file (" + args[0] + ").";
+            LOGGER.log(Level.SEVERE, message + "\n" + e.getLocalizedMessage());
+            quit(1, message);
         }
     }
 
