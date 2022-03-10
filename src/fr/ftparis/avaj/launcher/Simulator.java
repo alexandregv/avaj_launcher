@@ -42,7 +42,7 @@ public class Simulator {
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(false);
 
-            LOGGER.setLevel(Level.FINEST);
+            LOGGER.setLevel(Level.FINE);
         } catch( Exception exception ) {
             LOGGER.log(Level.SEVERE, "Error while initializing logger", exception);
         }
