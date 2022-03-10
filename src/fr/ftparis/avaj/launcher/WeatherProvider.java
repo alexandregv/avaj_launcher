@@ -17,13 +17,13 @@ public class WeatherProvider {
     public String getCurrentWeather(Coordinates coordinates) {
         long sum = (long) coordinates.getLongitude() + coordinates.getLongitude() + coordinates.getHeight();
 
-        if (sum % 2 == 0)
+        if (sum % 11 == 0)
             return weather[0];
         else if (sum % 3 == 0 || sum % 5 == 0)
             return weather[1];
         else if (sum % 7 == 0 || sum % 9 == 0)
-            return weather[2];
-        else
             return weather[3];
+        else
+            return weather[2];
     }
 }
