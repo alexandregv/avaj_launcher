@@ -1,5 +1,7 @@
 package fr.ftparis.avaj.launcher;
 
+import fr.ftparis.avaj.launcher.exceptions.ScenarioFileNotFoundException;
+
 import javax.swing.text.AbstractDocument;
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,20 +16,20 @@ public class Simulator {
     static {
         try {
             SimpleFormatter formatter = new SimpleFormatter() {
-                //private static final String format = "[%1$tT] [%2$-7s] %3$s %n";
-                //public synchronized String format(LogRecord logRecord) {
-                //    return String.format(format,
-                //            new Date(logRecord.getMillis()),
-                //            logRecord.getLevel().getLocalizedName(),
-                //            logRecord.getMessage()
-                //    );
-                //
-                //}
-
-                private static final String format = "%1$s %n";
+                private static final String format = "[%1$tT] [%2$-7s] %3$s %n";
                 public synchronized String format(LogRecord logRecord) {
-                    return String.format(format, logRecord.getMessage());
+                    return String.format(format,
+                            new Date(logRecord.getMillis()),
+                            logRecord.getLevel().getLocalizedName(),
+                            logRecord.getMessage()
+                    );
+
                 }
+
+//                private static final String format = "%1$s %n";
+//                public synchronized String format(LogRecord logRecord) {
+//                    return String.format(format, logRecord.getMessage());
+//                }
             };
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
@@ -44,27 +46,31 @@ public class Simulator {
 
             LOGGER.setLevel(Level.FINE);
         } catch(Exception exception) {
-            String message = "Error while initializing logger";
-            LOGGER.log(Level.SEVERE, message, exception);
-            quit(1, message);
+            quit(1, "Error while initializing logger", exception);
         }
     }
 
     public static void main(String[] args) {
         if (args.length != 1)
-            quit(1, "Please provide a scenario file as argument.");
+            quit(1, "Please provide a scenario file as argument.", new ScenarioFileNotFoundException("No scenario file provided."));
 
         try {
             initFromScenarioFile(args[0]);
         } catch (IOException exception) {
-            Arrays.stream(LOGGER.getHandlers()).filter(h -> h instanceof ConsoleHandler).forEach(LOGGER::removeHandler);
-            String message = "Error while reading scenario file (" + args[0] + ").";
-            LOGGER.log(Level.SEVERE, message, exception);
-            quit(1, message);
+            quit(1, "Error while reading scenario file (" + args[0] + ").", exception);
         }
     }
 
     public static void quit(int exitStatus, String message) {
+        quit(exitStatus, message, null);
+    }
+
+    public static void quit(int exitStatus, Throwable throwable) {
+        quit(exitStatus, throwable.getLocalizedMessage(), throwable);
+    }
+
+    public static void quit(int exitStatus, String message, Throwable throwable) {
+        LOGGER.log(Level.SEVERE, message, throwable);
         System.out.println(message);
         System.exit(exitStatus);
     }
