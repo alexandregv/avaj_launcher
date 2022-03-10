@@ -42,6 +42,8 @@ public class ScenarioFile {
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
             quit(1, "Invalid scenario file, first line should contain the simulation count.");
         simulationCount = (int) tokenizer.nval;
+        if (simulationCount <= 0)
+            quit(1, "Invalid simulationCount, must be > 0 (line 1).");
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_EOL)
             quit(1, "Invalid scenario file, unexpected values after simulation count (line 1)");
