@@ -31,7 +31,7 @@ public class Baloon extends Aircraft implements Flyable {
                 this.coordinates.decreaseHeightBy(15);
                 super.updateConditions("Crap, some snow! It will be hard to keep this balloon warm.");
             }
-            default -> { super.updateConditions("Well, this place is actually neutral."); }
+            default -> super.updateConditions("Well, this place is actually neutral.");
         }
     }
 }

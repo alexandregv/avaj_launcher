@@ -1,10 +1,7 @@
 package fr.ftparis.avaj.launcher;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Tower {
     private final List<Flyable> observers = new ArrayList<>();

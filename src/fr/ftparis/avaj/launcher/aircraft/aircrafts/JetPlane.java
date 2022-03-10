@@ -33,7 +33,7 @@ public class JetPlane extends Aircraft implements Flyable {
                 this.coordinates.decreaseHeightBy(7);
                 super.updateConditions("Winter is coming...");
             }
-            default -> { super.updateConditions("Well, this place is actually neutral."); }
+            default -> super.updateConditions("Well, this place is actually neutral.");
         }
     }
 }

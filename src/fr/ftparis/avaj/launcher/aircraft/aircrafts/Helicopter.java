@@ -33,7 +33,7 @@ public class Helicopter extends Aircraft implements Flyable {
                 this.coordinates.decreaseHeightBy(12);
                 super.updateConditions("It's snowing! Not good for my rotor.");
             }
-            default -> { super.updateConditions("Well, this place is actually neutral."); }
+            default -> super.updateConditions("Well, this place is actually neutral.");
         }
     }
 }
