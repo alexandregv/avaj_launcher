@@ -43,8 +43,10 @@ public class Simulator {
             LOGGER.setUseParentHandlers(false);
 
             LOGGER.setLevel(Level.FINE);
-        } catch( Exception exception ) {
-            LOGGER.log(Level.SEVERE, "Error while initializing logger", exception);
+        } catch(Exception exception) {
+            String message = "Error while initializing logger";
+            LOGGER.log(Level.SEVERE, message, exception);
+            quit(1, message);
         }
     }
 
@@ -54,10 +56,10 @@ public class Simulator {
 
         try {
             initFromScenarioFile(args[0]);
-        } catch (IOException e) {
+        } catch (IOException exception) {
             Arrays.stream(LOGGER.getHandlers()).filter(h -> h instanceof ConsoleHandler).forEach(LOGGER::removeHandler);
             String message = "Error while reading scenario file (" + args[0] + ").";
-            LOGGER.log(Level.SEVERE, message + "\n" + e.getLocalizedMessage());
+            LOGGER.log(Level.SEVERE, message, exception);
             quit(1, message);
         }
     }

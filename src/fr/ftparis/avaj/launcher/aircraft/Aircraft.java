@@ -13,6 +13,8 @@ public class Aircraft {
     protected Coordinates coordinates;
     private static long idCounter = 0;
     protected WeatherTower weatherTower;
+    private final Logger LOGGER = Logger.getLogger(Simulator.class.getPackage().getName());
+
 
     public Aircraft(String name, Coordinates coordinates) {
         this.id = nextId();
@@ -64,15 +66,15 @@ public class Aircraft {
             this.unregisterTower(this.weatherTower);
             return;
         }
-        msg(message);
+        this.msg(message);
     }
 
     private void log(String message) {
-        Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.INFO, this + ": " + message);
+        LOGGER.log(Level.INFO, this + ": " + message);
     }
 
     private void msg(String message) {
-        Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.FINE, this + ": " + message);
+        LOGGER.log(Level.FINE, this + ": " + message);
     }
 
     public String toString() {
