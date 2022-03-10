@@ -2,8 +2,8 @@ package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.aircraft.AircraftFactory;
 import fr.ftparis.avaj.launcher.aircraft.AircraftInfos;
-import fr.ftparis.avaj.launcher.exceptions.InvalidAircraftType;
-import fr.ftparis.avaj.launcher.exceptions.UnknownAircraftType;
+import fr.ftparis.avaj.launcher.exceptions.InvalidAircraftTypeException;
+import fr.ftparis.avaj.launcher.exceptions.UnknownAircraftTypeException;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ public class Simulation {
         aircraftInfosList.forEach(infos -> {
             try {
                 factory.newAircraft(infos).registerTower(tower);
-            } catch (UnknownAircraftType | InvalidAircraftType exception) {
+            } catch (UnknownAircraftTypeException | InvalidAircraftTypeException exception) {
                 Simulator.error(exception);
             }
         });
