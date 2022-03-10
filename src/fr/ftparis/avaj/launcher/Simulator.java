@@ -15,20 +15,19 @@ public class Simulator {
     static {
         try {
             SimpleFormatter formatter = new SimpleFormatter() {
-                private static final String format = "[%1$tT] [%2$-7s] %3$s %n";
+                //private static final String format = "[%1$tT] [%2$-7s] %3$s %n";
+                //public synchronized String format(LogRecord logRecord) {
+                //    return String.format(format,
+                //            new Date(logRecord.getMillis()),
+                //            logRecord.getLevel().getLocalizedName(),
+                //            logRecord.getMessage()
+                //    );
+                //}
+
+                private static final String format = "%1$s %n";
                 public synchronized String format(LogRecord logRecord) {
-                    return String.format(format,
-                            new Date(logRecord.getMillis()),
-                            logRecord.getLevel().getLocalizedName(),
-                            logRecord.getMessage()
-                    );
-
+                    return String.format(format, logRecord.getMessage());
                 }
-
-//                private static final String format = "%1$s %n";
-//                public synchronized String format(LogRecord logRecord) {
-//                    return String.format(format, logRecord.getMessage());
-//                }
             };
 
             ConsoleHandler consoleHandler = new ConsoleHandler();
