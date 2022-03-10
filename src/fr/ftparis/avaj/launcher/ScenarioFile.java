@@ -11,7 +11,7 @@ import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static fr.ftparis.avaj.launcher.Simulator.quit;
+import static fr.ftparis.avaj.launcher.Simulator.error;
 
 public class ScenarioFile {
     public static void initFromScenarioFile(String filename) throws IOException {
@@ -30,7 +30,7 @@ public class ScenarioFile {
         try {
             fileReader = new FileReader(filename);
         } catch (FileNotFoundException e) {
-            quit(1, new ScenarioFileNotFoundException("Could not find scenario file: " + filename));
+            Simulator.error(new ScenarioFileNotFoundException("Could not find scenario file: " + filename));
         }
         StreamTokenizer tokenizer = new StreamTokenizer(fileReader);
 
@@ -42,13 +42,13 @@ public class ScenarioFile {
         int simulationCount;
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER)
-            quit(1, new InvalidScenarioFileException("Invalid scenario file, first line should contain the simulation count."));
+            Simulator.error(new InvalidScenarioFileException("Invalid scenario file, first line should contain the simulation count."));
         simulationCount = (int) tokenizer.nval;
         if (simulationCount <= 0)
-            quit(1, new InvalidScenarioFileException("Invalid simulationCount, must be > 0 (line 1)."));
+            Simulator.error(new InvalidScenarioFileException("Invalid simulationCount, must be > 0 (line 1)."));
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_EOL)
-            quit(1, new InvalidScenarioFileException("Invalid scenario file, unexpected values after simulation count (line 1)"));
+            Simulator.error(new InvalidScenarioFileException("Invalid scenario file, unexpected values after simulation count (line 1)"));
 
         return simulationCount;
     }
@@ -70,43 +70,43 @@ public class ScenarioFile {
 
         tokenizer.pushBack();
         if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
-            quit(1, new InvalidScenarioFileException("Error on 'type' token (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error on 'type' token (line " + tokenizer.lineno() + ")."));
         }
         type = tokenizer.sval;
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
-            quit(1, new InvalidScenarioFileException("Error on 'name' token (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error on 'name' token (line " + tokenizer.lineno() + ")."));
         }
         name = tokenizer.sval;
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-            quit(1, new InvalidScenarioFileException("Error on 'longitude' token (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error on 'longitude' token (line " + tokenizer.lineno() + ")."));
         }
         longitude = (int) tokenizer.nval;
         if (longitude < 0) {
-            quit(1, new InvalidScenarioFileException("Error, 'longitude' must be > 0 (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error, 'longitude' must be > 0 (line " + tokenizer.lineno() + ")."));
         }
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-            quit(1, new InvalidScenarioFileException("Error on 'latitude' token (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error on 'latitude' token (line " + tokenizer.lineno() + ")."));
         }
         latitude = (int) tokenizer.nval;
         if (latitude < 0) {
-            quit(1, new InvalidScenarioFileException("Error, 'latitude' must be > 0 (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error, 'latitude' must be > 0 (line " + tokenizer.lineno() + ")."));
         }
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-            quit(1, new InvalidScenarioFileException("Error on height token (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error on height token (line " + tokenizer.lineno() + ")."));
         }
         height = (int) tokenizer.nval;
         if (height > 100)
             height = 100;
         if (height <= 0) {
-            quit(1, new InvalidScenarioFileException("Error, 'height' must be > 0 (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error, 'height' must be > 0 (line " + tokenizer.lineno() + ")."));
         }
 
         if (tokenizer.nextToken() != StreamTokenizer.TT_EOL) {
-            quit(1, new InvalidScenarioFileException("Error, unexpected tokens at end of line (line " + tokenizer.lineno() + ")."));
+            Simulator.error(new InvalidScenarioFileException("Error, unexpected tokens at end of line (line " + tokenizer.lineno() + ")."));
         }
 
         return new AircraftInfos(type, name, longitude, latitude, height);

@@ -1,10 +1,9 @@
 package fr.ftparis.avaj.launcher;
 
+import com.sun.source.doctree.SummaryTree;
 import fr.ftparis.avaj.launcher.exceptions.ScenarioFileNotFoundException;
 
-import javax.swing.text.AbstractDocument;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.*;
 
@@ -46,32 +45,32 @@ public class Simulator {
 
             LOGGER.setLevel(Level.FINE);
         } catch(Exception exception) {
-            quit(1, "Error while initializing logger", exception);
+            Simulator.error("Error while initializing logger", exception);
         }
     }
 
     public static void main(String[] args) {
         if (args.length != 1)
-            quit(1, "Please provide a scenario file as argument.", new ScenarioFileNotFoundException("No scenario file provided."));
+            Simulator.error("Please provide a scenario file as argument.", new ScenarioFileNotFoundException("No scenario file provided."));
 
         try {
             initFromScenarioFile(args[0]);
         } catch (IOException exception) {
-            quit(1, "Error while reading scenario file (" + args[0] + ").", exception);
+            Simulator.error("Error while reading scenario file (" + args[0] + ").", exception);
         }
     }
 
-    public static void quit(int exitStatus, String message) {
-        quit(exitStatus, message, null);
+    public static void error(String message) {
+        Simulator.error(message, null);
     }
 
-    public static void quit(int exitStatus, Throwable throwable) {
-        quit(exitStatus, throwable.getLocalizedMessage(), throwable);
+    public static void error(Throwable throwable) {
+        Simulator.error(throwable.getLocalizedMessage(), throwable);
     }
 
-    public static void quit(int exitStatus, String message, Throwable throwable) {
+    public static void error(String message, Throwable throwable) {
         LOGGER.log(Level.SEVERE, message, throwable);
         System.out.println(message);
-        System.exit(exitStatus);
+        System.exit(1);
     }
 }
