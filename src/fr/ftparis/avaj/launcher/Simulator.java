@@ -1,6 +1,5 @@
 package fr.ftparis.avaj.launcher;
 
-import com.sun.source.doctree.SummaryTree;
 import fr.ftparis.avaj.launcher.exceptions.ScenarioFileNotFoundException;
 
 import java.io.IOException;
