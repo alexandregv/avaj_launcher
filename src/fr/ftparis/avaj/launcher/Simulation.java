@@ -2,6 +2,7 @@ package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.aircraft.AircraftFactory;
 import fr.ftparis.avaj.launcher.aircraft.AircraftInfos;
+import fr.ftparis.avaj.launcher.exceptions.UnknownAircraftType;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,8 +15,13 @@ public class Simulation {
         Logger logger = Logger.getLogger(Simulator.class.getPackage().getName());
 
         aircraftInfosList.forEach(i -> logger.finest(i.toString()));
-
-        aircraftInfosList.forEach(infos -> factory.newAircraft(infos).registerTower(tower));
+        aircraftInfosList.forEach(infos -> {
+            try {
+                factory.newAircraft(infos).registerTower(tower);
+            } catch (UnknownAircraftType exception) {
+                Simulator.error(exception);
+            }
+        });
         IntStream.range(0, weatherChangesCount).forEach(i -> tower.changeWeather());
     }
 }
