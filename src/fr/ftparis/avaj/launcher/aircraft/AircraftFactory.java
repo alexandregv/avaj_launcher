@@ -16,8 +16,8 @@ public class AircraftFactory {
         Coordinates coordinates = new Coordinates(longitude, latitude, height);
 
         try {
-            Class<?> clazz = Class.forName("fr.ftparis.avaj.launcher.aircraft.aircrafts." + type);
-            Constructor<?> constructor = clazz.getConstructor(String.class, Coordinates.class);
+            Class<?> clazz = Class.forName("fr.ftparis.avaj.launcher.aircraft." + type);
+            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, Coordinates.class);
             Object instance = constructor.newInstance(name, coordinates);
             if (instance instanceof Aircraft)
                 if (instance instanceof Flyable)

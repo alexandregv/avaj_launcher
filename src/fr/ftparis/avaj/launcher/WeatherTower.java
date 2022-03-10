@@ -10,7 +10,7 @@ public class WeatherTower extends Tower {
         return WeatherProvider.getProvider().getCurrentWeather(coordinates);
     }
 
-    protected void changeWeather() {
+    void changeWeather() {
         Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.FINER, "WeatherTower: Weather is changing!");
         this.conditionsChanged();
     }

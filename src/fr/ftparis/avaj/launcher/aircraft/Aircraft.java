@@ -16,7 +16,7 @@ public class Aircraft {
     private final Logger LOGGER = Logger.getLogger(Simulator.class.getPackage().getName());
 
 
-    public Aircraft(String name, Coordinates coordinates) {
+    protected Aircraft(String name, Coordinates coordinates) {
         this.id = nextId();
         this.name = name;
         this.coordinates = coordinates;

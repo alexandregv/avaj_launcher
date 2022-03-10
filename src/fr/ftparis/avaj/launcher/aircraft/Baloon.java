@@ -1,4 +1,4 @@
-package fr.ftparis.avaj.launcher.aircraft.aircrafts;
+package fr.ftparis.avaj.launcher.aircraft;
 
 import fr.ftparis.avaj.launcher.Flyable;
 import fr.ftparis.avaj.launcher.WeatherProvider;
@@ -7,7 +7,7 @@ import fr.ftparis.avaj.launcher.aircraft.Coordinates;
 
 public class Baloon extends Aircraft implements Flyable {
 
-    public Baloon(String name, Coordinates coordinates) {
+    Baloon(String name, Coordinates coordinates) {
         super(name, coordinates);
     }
 
