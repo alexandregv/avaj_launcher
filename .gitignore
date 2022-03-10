@@ -1,6 +1,9 @@
 # javac argument file
 sources.txt
 
+# output file
+simulation.txt
+
 # IDE files
 .settings/
 .idea/
