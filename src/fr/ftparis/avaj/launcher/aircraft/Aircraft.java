@@ -1,7 +1,11 @@
 package fr.ftparis.avaj.launcher.aircraft;
 
 import fr.ftparis.avaj.launcher.Flyable;
+import fr.ftparis.avaj.launcher.Simulator;
 import fr.ftparis.avaj.launcher.WeatherTower;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Aircraft {
     protected long id;
@@ -64,11 +68,11 @@ public class Aircraft {
     }
 
     private void log(String message) {
-        System.out.println("[LOG] " + this + ": " + message);
+        Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.INFO, this + ": " + message);
     }
 
     private void msg(String message) {
-        System.out.println("[MSG] " + this + ": " + message);
+        Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.FINE, this + ": " + message);
     }
 
     public String toString() {

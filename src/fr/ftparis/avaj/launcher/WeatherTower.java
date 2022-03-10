@@ -2,13 +2,16 @@ package fr.ftparis.avaj.launcher;
 
 import fr.ftparis.avaj.launcher.aircraft.Coordinates;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class WeatherTower extends Tower {
     public String getWeather(Coordinates coordinates) {
         return WeatherProvider.getProvider().getCurrentWeather(coordinates);
     }
 
     protected void changeWeather() {
-        System.out.println("[DBG] WeatherTower: Weather is changing!");
+        Logger.getLogger(Simulator.class.getPackage().getName()).log(Level.FINEST, "WeatherTower: Weather is changing!");
         this.conditionsChanged();
     }
 }
