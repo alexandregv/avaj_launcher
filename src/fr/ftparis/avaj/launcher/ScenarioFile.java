@@ -98,7 +98,7 @@ public class ScenarioFile {
         }
         height = (int) tokenizer.nval;
         if (height > 100)
-            quit(1, "Error, 'height' must be <= 100 (line " + tokenizer.lineno() + ").");
+            height = 100;
         if (height <= 0) {
             quit(1, "Error, 'height' must be > 0 (line " + tokenizer.lineno() + ").");
         }
